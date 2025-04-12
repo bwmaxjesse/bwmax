@@ -42,7 +42,7 @@
 </head>
 <body>
   <h1>BWMAX</h1>
-  <h2>ROBLOX CALCULATOR</h2>
+  <h2>ROBUX CALCULATOR</h2>
   <input type="number" id="inputValue" placeholder="Enter AUD amount">
   <br>
   <button onclick="calculate()">Calculate</button>
@@ -76,7 +76,6 @@
       isAUDtoRobux = !isAUDtoRobux;
       document.getElementById('inputValue').value = '';
       document.getElementById('result-output').innerText = '0';
-      // document.getElementById('robux-symbol').innerText = isAUDtoRobux ? 'R$' : '$';
       document.getElementById('inputValue').placeholder = isAUDtoRobux ? 'Enter AUD' : 'Enter ROBUX';
     }
   </script>
