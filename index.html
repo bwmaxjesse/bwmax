@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BWMAX Robux Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.2em;
+    }
+    h2 {
+      font-size: 2em;
+      margin-bottom: 1em;
+    }
+    input, button {
+      font-size: 1.5em;
+      padding: 10px;
+      margin: 10px;
+      width: 300px;
+      max-width: 90%;
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #robux-symbol {
+      font-weight: bold;
+      font-size: 1.5em;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>BWMAX</h1>
+  <h2>ROBLOX CALCULATOR</h2>
+  <input type="number" id="inputValue" placeholder="Enter amount">
+  <br>
+  <button onclick="calculate()">Calculate</button>
+  <button onclick="flipConversion()">Flip Conversion</button>
+  <div id="output">
+    <div id="robux-symbol">R$</div>
+    <div id="result-output">0</div>
+  </div>
+
+  <script>
+    let isAUDtoRobux = true;
+    const rate = 399 / 5.95;
+
+    function calculate() {
+      const input = parseFloat(document.getElementById('inputValue').value);
+      let result = 0;
+      if (isNaN(input)) {
+        result = 0;
+      } else if (isAUDtoRobux) {
+        result = Math.floor(input * rate);
+        document.getElementById('result-output').innerText = result;
+        document.getElementById('robux-symbol').innerText = ' ROBUX';
+      } else {
+        result = (input / rate).toFixed(2);
+        document.getElementById('result-output').innerText = result;
+        document.getElementById('robux-symbol').innerText = ' AUD';
+      }
+    }
+
+    function flipConversion() {
+      isAUDtoRobux = !isAUDtoRobux;
+      document.getElementById('inputValue').value = '';
+      document.getElementById('result-output').innerText = '0';
+      document.getElementById('robux-symbol').innerText = isAUDtoRobux ? 'R$' : '$';
+      document.getElementById('inputValue').placeholder = isAUDtoRobux ? 'Enter AUD' : 'Enter ROBUX';
+    }
+  </script>
+</body>
+</html>
