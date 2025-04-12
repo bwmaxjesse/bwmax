@@ -29,14 +29,11 @@
     #output {
       margin-top: 20px;
       font-size: 2em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-    #robux-symbol {
-      font-weight: bold;
-      font-size: 1.5em;
-      margin-right: 10px;
+    footer {
+      margin-top: 50px;
+      font-size: 1em;
+      color: #555;
     }
   </style>
 </head>
@@ -47,35 +44,39 @@
   <br>
   <button onclick="calculate()">Calculate</button>
   <button onclick="flipConversion()">Flip Conversion</button>
-  <div id="output">
-<!--     <div id="robux-symbol">R$</div> -->
-    <div id="result-output"></div>
-  </div>
+  <div id="output">0</div>
+
+  <footer>Version 1.5</footer>
 
   <script>
     let isAUDtoRobux = true;
     const rate = 399 / 5.95;
 
+    function formatNumber(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     function calculate() {
       const input = parseFloat(document.getElementById('inputValue').value);
-      let result = 0;
-      if (isNaN(input)) {
-        result = 0;
-      } else if (isAUDtoRobux) {
-        result = Math.floor(input * rate);
-        document.getElementById('result-output').innerText = result;
-        document.getElementById('robux-symbol').innerText = ' ROBUX';
-      } else {
-        result = (input / rate).toFixed(2);
-        document.getElementById('result-output').innerText = result;
-        document.getElementById('robux-symbol').innerText = ' AUD';
+      let resultText = "0";
+
+      if (!isNaN(input)) {
+        if (isAUDtoRobux) {
+          const robux = Math.floor(input * rate);
+          resultText = formatNumber(robux) + " ROBUX";
+        } else {
+          const aud = (input / rate).toFixed(2);
+          resultText = formatNumber(aud) + " AUD";
+        }
       }
+
+      document.getElementById('output').innerText = resultText;
     }
 
     function flipConversion() {
       isAUDtoRobux = !isAUDtoRobux;
       document.getElementById('inputValue').value = '';
-      document.getElementById('result-output').innerText = '0';
+      document.getElementById('output').innerText = '0';
       document.getElementById('inputValue').placeholder = isAUDtoRobux ? 'Enter AUD' : 'Enter ROBUX';
     }
   </script>
